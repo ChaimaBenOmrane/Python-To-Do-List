@@ -25,10 +25,10 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t ChaimaBenOmrane/pythonlist:${{ github.sha }} .
-        docker tag ChaimaBenOmrane/pythonlist:${{ github.sha }} ChaimaBenOmrane/pythonlist:latest
+        docker build -t chaimabenomrane2001/pythonlist:${{ github.sha }} .
+        docker tag chaimabenomrane2001/pythonlist:${{ github.sha }} chaimabenomrane2001/pythonlist:latest
 
     - name: Push Docker image
       run: |
-        docker push ChaimaBenOmrane/pythonlist:${{ github.sha }}
-        docker push ChaimaBenOmrane/pythonlist:latest
+        docker push chaimabenomrane2001/pythonlist:${{ github.sha }}
+        docker push chaimabenomrane2001/pythonlist:latest
