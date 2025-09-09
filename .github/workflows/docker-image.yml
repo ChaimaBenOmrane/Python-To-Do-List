@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Docker Build and Push
 
 on:
   push:
@@ -6,19 +6,29 @@ on:
   pull_request:
     branches: [ "main" ]
 
+permissions:
+  contents: read
+
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
+    
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - name: Checkout code
+      uses: actions/checkout@v4
 
     - name: Log in to Docker Hub
-      uses: docker/login-action@v2
-          with:
-          username: ${{ chaimabenomrane2001 }}
-          password: ${{ 14772552 }}
+      uses: docker/login-action@v3
+      with:
+        username: ${{ chaimabenomrane2001 }}
+        password: ${{ dckr_pat_KzQgqOgvAhVlW2nkBFS2-uSUPAw }}
+
+    - name: Build Docker image
+      run: |
+        docker build -t ChaimaBenOmrane/Python-To-Do-List:${{ github.sha }} .
+        docker tag ChaimaBenOmrane/Python-To-Do-List:${{ github.sha }} ChaimaBenOmrane/Python-To-Do-List:latest
+
+    - name: Push Docker image
+      run: |
+        docker push ChaimaBenOmrane/Python-To-Do-List:${{ github.sha }}
+        docker push ChaimaBenOmrane/Python-To-Do-List:latest
